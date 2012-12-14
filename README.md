@@ -13,11 +13,11 @@ Tested with Ruby :
 
 ## Installation
 
-  gem install bleetz
+    gem install bleetz
 
 or
 
-  git clone https://github.com/TibshoOT/bleetz.git
+    git clone https://github.com/TibshoOT/bleetz.git
 
 ## Configuration
 
