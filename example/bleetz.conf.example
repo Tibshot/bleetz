@@ -1,0 +1,87 @@
+### SSH configuration
+
+## :host can be an ip or a domain
+#
+#set :host, '127.0.0.1'
+#set :host, a.fucking.domain
+
+## Port configuration
+#
+# By default, port = 22.
+#set :port, 22
+
+## username configuration
+#
+#set :username, 'user_login'
+
+## Auth configuration
+#
+# You can avoid this line if you use public key,
+# or if you want to give pwd during your action.
+# set :password, "password"
+# Advice: don't configure plain text password.
+
+## SSH Private Keys - default: $HOME/.ssh/id_dsa, $HOME/.ssh2/id_dsa, $HOME/.ssh/id_rsa, and $HOME/.ssh2/id_rsa
+#
+# Example:
+#set :keys, ['/tmp/a_key']
+#set :keys, ['/tmp/a_key', '/root/.ssh/another_key']
+
+# SSH Timeout - Default: 10
+# Example:
+# set :timeout, 0
+
+### VERY OPTIONNAL SSH CONFIGS
+
+## SSH Compression - default: none
+# You can choose:
+# - 'zlib'
+# - 'none'
+#
+#Example:
+#set :compression, 'zlib'
+
+## SSH Compression level - default: 6
+# 0 to 9:
+# 0 is no compression
+# 9 is most compression
+#
+# Example
+#set :compression_level, 6
+
+## SSH Encryption - default: 3des-cbc
+# You can pass an array to avoid algorithm problem (fallback system)
+# Algorithms provided:
+# - aes128-cbc
+# - blowfish-cbc
+# - aes256-cbc
+# - aes192-cbc
+# - idea-cbc
+# - none
+#
+# Example:
+#set :encryption, 'aes192-cbc'
+#set :encryption, ['aes192-cbc', 'blowfish-cbc']
+
+## SSH Host key type - default : ssh-dss
+# provided type:
+# - ssh-dss
+# - ssh-rsa
+#
+# Example:
+#set :host_key, 'ssh-dss'
+#set :host_key, ['ssh-dss', 'ssh-rsa']
+
+### OPTIONNAL SSH CONFIGS END
+
+
+#task(:deploy) {
+# shell 'echo "test"'
+# shell 'echo \'string with single quote\''
+# shell "echo 'bleetz rocks'"
+#}
+
+#task(:moar) {
+# shell 'echo \'MOAR task !\''
+# call :deploy
+#}
