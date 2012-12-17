@@ -55,22 +55,78 @@ Bleetz has wrapped net-ssh library options to configure your ssh connection(s).
 
 #### Mandatory:
 
-Option :: Conf symbol :: Type
-Host   :: :host :: String
-Username :: :username :: String
+<table>
+  <tr>
+    <th>Option</th>
+    <th>Conf symbol</th>
+    <th>Type</th>
+  </tr>
+  <tr>
+    <th>Host</th>
+    <th>:host</th>
+    <th>String</th>
+  </tr>
+  <tr>
+    <th>Username</th>
+    <th>:username</th>
+    <th>String</th>
+  </tr>
+</table>
 
 #### Optionnal:
 
 These options are set by default but you can overide them (if you are sure of what you are doing...)
 
-Option :: Conf symbol :: Type :: Default value
-Port :: :port :: Integer :: 22
-Timeout :: :timeout :: Integer :: 10
-Private key :: :keys :: Array of String :: ["$HOME/.ssh/id_dsa", "$HOME/.ssh2/id_dsa", "$HOME/.ssh/id_rsa", "$HOME/.ssh2/id_rsa"]
-Compression :: :compresion :: String :: 'none'
-Compression leve :: :compresion_level :: Integer :: 6
-Encryption :: :encryption :: String || Array of String :: '3des-cbc'
-Host Key :: :host_key :: String || Array of String :: 'ssh-dss'
+<table>
+  <tr>
+    <th>Option</th>
+    <th>Conf symbol</th>
+    <th>Type</th>
+    <th>Default value</th>
+  </tr>
+  <tr>
+    <th>Port</th>
+    <td>:port</td>
+    <td>Integer</td>
+    <td>22</td>
+  </tr>
+  <tr>
+    <th>Timeout</th>
+    <td>:timeout</td>
+    <td>Integer</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <th>Private Key</th>
+    <td>:keys</td>
+    <td>Array of String</td>
+    <td>["$HOME/.ssh/id_dsa", "$HOME/.ssh2/id_dsa", "$HOME/.ssh/id_rsa", "$HOME/.ssh2/id_rsa"</td>
+  </tr>
+  <tr>
+    <th>Compression</th>
+    <td>:compression</td>
+    <td>String</td>
+    <td>'none'</td>
+  </tr>
+  <tr>
+    <th>Compression level</th>
+    <td>:compression_level</td>
+    <td>Integer</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <th>Encryption</th>
+    <td>:encryption</td>
+    <td>String || Array of String</td>
+    <td>'3des-cbc'</td>
+  </tr>
+  <tr>
+    <th>Host key</th>
+    <td>:host_key</td>
+    <td>String || Array of String</td>
+    <td>'ssh-dss'</td>
+  </tr>
+</table>
 
 Generally, you don't have to change thess options except :port, :timeout ans :keys.
 
