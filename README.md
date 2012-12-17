@@ -53,7 +53,7 @@ The most helpful to understand your configuration, comment !
 
 Bleetz has wrapped net-ssh library options to configure your ssh connection(s).
 
-#### Mandatory:
+###### Mandatory:
 
 <table>
   <tr>
@@ -73,7 +73,7 @@ Bleetz has wrapped net-ssh library options to configure your ssh connection(s).
   </tr>
 </table>
 
-#### Optionnal:
+###### Optionnal:
 
 These options are set by default but you can overide them (if you are sure of what you are doing...)
 
@@ -128,9 +128,9 @@ These options are set by default but you can overide them (if you are sure of wh
   </tr>
 </table>
 
-Generally, you don't have to change thess options except :port, :timeout ans :keys.
+Generally, you don't have to change thess options except :port, :timeout and :keys.
 
-#### How to configure
+###### How to configure
 
 You have to use set function. In order to configure a user, you can do this:
 
@@ -165,7 +165,7 @@ If you want to put a description, you can do this:
 
 You will see why you've put this after :task_name (See Usage chapter, -l option).
 
-#### Write shell script
+###### Write shell script
 
 Imagine that you want to write a task that print "42".
 
@@ -176,7 +176,7 @@ Imagine that you want to write a task that print "42".
 This part will execute echo 42 after SSH connection.
 
 
-#### Yo dawg, I heard you like to call task in task so...
+###### Yo dawg, I heard you like to call task in task so...
 
 You can !
 
