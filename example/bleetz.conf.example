@@ -3,7 +3,7 @@
 ## :host can be an ip or a domain
 #
 #set :host, '127.0.0.1'
-#set :host, 'a.fucking.domain'
+#set :host, 'a.fraking.domain'
 
 ## Port configuration
 #
