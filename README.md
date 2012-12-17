@@ -12,10 +12,12 @@ I prefere when I know what is going on.
 
 You need rubygems installed.
 
-Tested with Ruby :
+Tested with Ruby:
 
 * 1.8.7
 * 1.9.2
+* 1.9.3
+* 2.0.0-preview1
 
 ## Installation
 
@@ -128,6 +130,8 @@ These options are set by default but you can overide them (if you are sure what 
   </tr>
 </table>
 
+Check example file [here](https://github.com/TibshoOT/bleetz/blob/master/example/bleetz.conf.example).
+
 Generally, you don't have to change these options except :port, :timeout and :keys.
 
 ###### How to configure
@@ -144,7 +148,7 @@ Tasks are kind of functions where you write shell script that will be executed o
 
 Bleetz has been coded to deploy code but you can use it for different purpose (restart some services, backup, etc).
 
-#### Defining task
+###### Defining task
 
 To define a task:
 
@@ -199,6 +203,102 @@ Imagine that you want print 42 in another task, :new_task here, but you want to 
 
 That's it. If you call :new_task, 'I will print 42 !' and '42' will be printed after SSH connection. :)
 
+### .bleetz file (YAML)
+
+At the moment, there is only one option. Mandatory if you don't use -c command option.
+
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Argument</th>
+    <th>Explanation</th>
+  </tr>
+  <tr>
+    <th>:config</th>
+    <td>A configuration filee path</td>
+    <td>Tell bleetz binary to check configuration file without giving -c <conf>.</td>
+  </tr>
+</table>
+
+Example:
+
+    $ cat .bleetz
+
+You should see:
+
+    :config: 'a/path/to/bleetz/configuration/file'
+
 ## Usage
 
+It's important to notice that task name has to be put at end of command.
+
+### Available options
+
+<table>
+  <tr>
+    <th>Option</th>
+    <th>Need an argument ?</th>
+    <th>Explanation</th>
+  </tr>
+  <tr>
+    <th>-c</th>
+    <td>Yes, a configuration file</td>
+    <td>If you want to skip .bleetz file, use -c option.</td>
+  </tr>
+  <tr>
+    <th>-h</th>
+    <td>No.</td>
+    <td>Display help.</td>
+  </tr>
+  <tr>
+    <th>-l</th>
+    <td>No.</td>
+    <td>List configured tasks in configuration file.</td>
+  </tr>
+  <tr>
+    <th>-s</th>
+    <td>No.</td>
+    <td>Test configured SSH connection.</td>
+  </tr>
+  <tr>
+    <th>-t</th>
+    <td>Yes, task name.</td>
+    <td>Test tasks, just print commands.</td>
+  </tr>
+  <tr>
+    <th>-v</th>
+    <td>No.</td>
+    <td>Verbose mode.</td>
+  </tr>
+  <tr>
+    <th>-V</th>
+    <td>No.</td>
+    <td>Display version.</td>
+  </tr>
+</table>
+
+### Examples
+
+List available tasks:
+
+    bleetz -c /etc/bleetz.conf -l
+
+Test SSH connction (with .bleetz file):
+
+    bleetz -s
+
+Test :deploy task:
+
+    bleetz -c /etc/bleetz.conf -t deploy
+
+Exexute :deploy task in verbose mode (with .bleetz file):
+
+    bleetz -v deploy
+
+## Common errors
+
 SOON.
+
+## Want a feature ? Problem ?
+
+Open an issue ;)

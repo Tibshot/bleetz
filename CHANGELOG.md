@@ -6,4 +6,4 @@
 
 ## 1.0 / 2012-12-14
 
-* Project init
+* Project initialization.
