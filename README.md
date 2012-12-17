@@ -4,9 +4,9 @@ Fast KISS deployment tool.
 
 ## Why bleetz ?
 
-I tried Capistrano, Minas. There are great (No irony) but not for me.
+I tried Capistrano, Minas. They are great (No irony) but not for me.
 
-I prefere the way where I am 
+I prefere when I know what is going on.
 
 ## Requirements
 
