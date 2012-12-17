@@ -145,7 +145,7 @@ EOF
   end
 
   def version
-    puts "bleetz version #{VERSION}. Fuck yeah !"
+    puts "bleetz version #{VERSION}. Frak yeah !"
     exit(0)
   end
 
