@@ -100,7 +100,7 @@ These options are set by default but you can overide them (if you are sure of wh
     <th>Private Key</th>
     <td>:keys</td>
     <td>Array of String</td>
-    <td>["$HOME/.ssh/id_dsa", "$HOME/.ssh2/id_dsa", "$HOME/.ssh/id_rsa", "$HOME/.ssh2/id_rsa"</td>
+    <td>["$HOME/.ssh/id_dsa", "$HOME/.ssh2/id_dsa", "$HOME/.ssh/id_rsa", "$HOME/.ssh2/id_rsa"]</td>
   </tr>
   <tr>
     <th>Compression</th>
@@ -188,13 +188,14 @@ Taking our previous :forty_two task:
 
 Imagine that you want print 42 in another task, :new_task here, but you want stay DRY:
 
-   task :forty_two {
+    task :forty_two {
       shell "echo '42'"
-   }
-   task :new_task, "A description !" do
+    }
+
+    task :new_task, "A description !" do
       shell "echo 'I will print 42 !'"
       call :forty_two
-   end
+    end
 
 That's it. If you call :new_tasks, 'I will print 42 !' and '42' will be printed after SSH connection. :)
 
