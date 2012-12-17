@@ -63,19 +63,19 @@ Bleetz has wrapped net-ssh library options to configure your ssh connection(s).
   </tr>
   <tr>
     <th>Host</th>
-    <th>:host</th>
-    <th>String</th>
+    <td>:host</td>
+    <td>String</td>
   </tr>
   <tr>
     <th>Username</th>
-    <th>:username</th>
-    <th>String</th>
+    <td>:username</td>
+    <td>String</td>
   </tr>
 </table>
 
 ###### Optionnal:
 
-These options are set by default but you can overide them (if you are sure of what you are doing...)
+These options are set by default but you can overide them (if you are sure what you are doing...)
 
 <table>
   <tr>
@@ -128,7 +128,7 @@ These options are set by default but you can overide them (if you are sure of wh
   </tr>
 </table>
 
-Generally, you don't have to change thess options except :port, :timeout and :keys.
+Generally, you don't have to change these options except :port, :timeout and :keys.
 
 ###### How to configure
 
@@ -140,9 +140,9 @@ You have to use set function. In order to configure a user, you can do this:
 
 This is the main feature of Bleetz. Tasks.
 
-Tasks are kind of function where you write shell script that will be executed over SSH.
+Tasks are kind of functions where you write shell script that will be executed over SSH.
 
-Bleetz has been coded to deploy code but you can use it for different pupose (restart some services, backup, etc).
+Bleetz has been coded to deploy code but you can use it for different purpose (restart some services, backup, etc).
 
 #### Defining task
 
@@ -160,7 +160,7 @@ or
 
 If you want to put a description, you can do this:
 
-    task :task_name, "a fucking awesome description" {
+    task :task_name, "a fraking awesome description" {
     }
 
 You will see why you've put this after :task_name (See Usage chapter, -l option).
@@ -176,7 +176,7 @@ Imagine that you want to write a task that print "42".
 This part will execute echo 42 after SSH connection.
 
 
-###### Yo dawg, I heard you like to call task in task so...
+###### Yo dawg, I heard you like to call task, so I put a task in a task so...
 
 You can !
 
@@ -186,7 +186,7 @@ Taking our previous :forty_two task:
       shell "echo '42'"
     }
 
-Imagine that you want print 42 in another task, :new_task here, but you want stay DRY:
+Imagine that you want print 42 in another task, :new_task here, but you want to stay DRY:
 
     task :forty_two {
       shell "echo '42'"
@@ -197,7 +197,7 @@ Imagine that you want print 42 in another task, :new_task here, but you want sta
       call :forty_two
     end
 
-That's it. If you call :new_tasks, 'I will print 42 !' and '42' will be printed after SSH connection. :)
+That's it. If you call :new_task, 'I will print 42 !' and '42' will be printed after SSH connection. :)
 
 ## Usage
 
