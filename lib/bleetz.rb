@@ -6,7 +6,7 @@ require 'bleetz/object.rb'
 
 class Bleetz
 
-  VERSION = "1.0"
+  VERSION = "1.1"
 
   USAGE = <<-EOF
 Usage: bleetz [-c conf_file -h -l -s][[-t -v -c conf_file] task]
@@ -76,14 +76,18 @@ EOF
 
   def format_cmds(action = @action)
     abort "Unknown task: '#{action}'." unless @@actions.include?(action.to_sym)
-    @@actions[action.to_sym].each { |c|
-      if c.is_a? Symbol
-        abort "Undefined task: :#{c}. You have to define it." unless @@tasks.include?(c)
-        format_cmds(c)
-      else
-        @cmd_to_exec << c
-      end
-    }
+    begin
+      @@actions[action.to_sym].each { |c|
+        if c.is_a? Symbol
+          abort "Undefined task: :#{c}. You have to define it." unless @@tasks.include?(c)
+          format_cmds(c)
+        else
+          @cmd_to_exec << c
+        end
+      }
+    rescue SystemStackError => e
+      abort "You seem to create a call loop: #{e.message}"
+    end
   end
 
   def list
