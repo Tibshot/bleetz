@@ -1,4 +1,4 @@
-# bleetz
+# bleetz [![Build Status](https://travis-ci.org/TibshoOT/bleetz.png?branch=master)](https://travis-ci.org/TibshoOT/bleetz)
 
 Fast KISS deployment tool.
 
