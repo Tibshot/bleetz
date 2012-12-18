@@ -214,7 +214,7 @@ At the moment, there is only one option. Mandatory if you don't use -c command o
     <th>Explanation</th>
   </tr>
   <tr>
-    <th>:config</th>
+    <th>config</th>
     <td>A configuration filee path</td>
     <td>Tell bleetz binary to check configuration file without giving -c <conf>.</td>
   </tr>
@@ -226,7 +226,7 @@ Example:
 
 You should see:
 
-    :config: 'a/path/to/bleetz/configuration/file'
+    config: 'a/path/to/bleetz/configuration/file'
 
 ## Usage
 
