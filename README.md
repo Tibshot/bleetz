@@ -140,68 +140,68 @@ You have to use set function. In order to configure a user, you can do this:
 
     set :username, 'a_login'
 
-### Tasks
+### Actions
 
-This is the main feature of Bleetz. Tasks.
+This is the main feature of Bleetz. Actions.
 
-Tasks are kind of functions where you write shell script that will be executed over SSH.
+Actions are kind of functions where you write shell script that will be executed over SSH.
 
 Bleetz has been coded to deploy code but you can use it for different purpose (restart some services, backup, etc).
 
-###### Defining task
+###### Defining action
 
-To define a task:
+To define an action:
 
-    task :task_name {
+    action(:action_name) {
       # blabla
     }
 
 or
 
-    task :task_name do
+    action :action_name do
       # blabla
     end
 
 If you want to put a description, you can do this:
 
-    task :task_name, "a fraking awesome description" {
+    action(:action_name, "a fraking awesome description") {
     }
 
-You will see why you've put this after :task_name (See Usage chapter, -l option).
+You will see why you've put this after :action_name (See Usage chapter, -l option).
 
 ###### Write shell script
 
-Imagine that you want to write a task that print "42".
+Imagine that you want to write an action that print "42".
 
-    task :forty_two {
+    action(:forty_two) {
       shell "echo '42'"
     }
 
 This part will execute echo 42 after SSH connection.
 
 
-###### Yo dawg, I heard you like to call task, so I put a task in a task so...
+###### Yo dawg, I heard you like to call action, so I put an action in an action so...
 
 You can !
 
-Taking our previous :forty_two task:
+Taking our previous :forty_two action:
 
-    task :forty_two {
+    action(:forty_two) {
       shell "echo '42'"
     }
 
-Imagine that you want print 42 in another task, :new_task here, but you want to stay DRY:
+Imagine that you want print 42 in another action, :new_action here, but you want to stay DRY:
 
-    task :forty_two {
+    action(:forty_two) {
       shell "echo '42'"
     }
 
-    task :new_task, "A description !" do
+    action :new_action, "A description !" do
       shell "echo 'I will print 42 !'"
       call :forty_two
     end
 
-That's it. If you call :new_task, 'I will print 42 !' and '42' will be printed after SSH connection. :)
+That's it. If you call :new_action, 'I will print 42 !' and '42' will be printed after SSH connection. :)
 
 ### .bleetz file (YAML)
 
@@ -230,7 +230,7 @@ You should see:
 
 ## Usage
 
-It's important to notice that task name has to be put at end of command.
+It's important to notice that action name has to be put at end of command.
 
 ### Available options
 
@@ -253,7 +253,7 @@ It's important to notice that task name has to be put at end of command.
   <tr>
     <th>-l</th>
     <td>No.</td>
-    <td>List configured tasks in configuration file.</td>
+    <td>List configured actions in configuration file.</td>
   </tr>
   <tr>
     <th>-s</th>
@@ -262,8 +262,8 @@ It's important to notice that task name has to be put at end of command.
   </tr>
   <tr>
     <th>-t</th>
-    <td>Yes, task name.</td>
-    <td>Test tasks, just print commands.</td>
+    <td>Yes, action's name.</td>
+    <td>Test actions, just print commands.</td>
   </tr>
   <tr>
     <th>-v</th>
@@ -279,7 +279,7 @@ It's important to notice that task name has to be put at end of command.
 
 ### Examples
 
-List available tasks:
+List available actions:
 
     bleetz -c /etc/bleetz.conf -l
 
@@ -287,11 +287,11 @@ Test SSH connction (with .bleetz file):
 
     bleetz -s
 
-Test :deploy task:
+Test :deploy action:
 
     bleetz -c /etc/bleetz.conf -t deploy
 
-Exexute :deploy task in verbose mode (with .bleetz file):
+Exexute :deploy action in verbose mode (with .bleetz file):
 
     bleetz -v deploy
 

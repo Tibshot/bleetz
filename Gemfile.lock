@@ -1,0 +1,13 @@
+GEM
+  specs:
+    highline (1.6.15)
+    net-ssh (2.6.2)
+    rake (10.0.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  highline
+  net-ssh
+  rake

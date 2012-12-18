@@ -1,0 +1,5 @@
+action(:deploy) {
+ action :lol
+ shell 'echo "test"'
+}
+

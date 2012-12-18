@@ -8,8 +8,8 @@ module Conf
     base.extend(self)
   end
 
-  def task(action, desc = "")
-    check_main_call(:task)
+  def action(action, desc = "")
+    check_main_call(:action)
     @cmds = []
     yield
     h = { action.to_sym => @cmds }
@@ -24,10 +24,10 @@ module Conf
     @cmds << cmd
   end
 
-  def call(task)
+  def call(action)
     check_sub_call(:call)
-    raise "'call :task_name'. You didn't pass a Symbol." unless task.is_a? Symbol
-    @cmds << task
+    raise "'call :action_name'. You didn't pass a Symbol." unless action.is_a? Symbol
+    @cmds << action
   end
 
   def set(opt, value)
@@ -39,12 +39,12 @@ module Conf
 
   def check_main_call(func)
     method = caller[2][/`([^']*)'/, 1]
-    raise "Main configuration function, you cannot call '#{func}' it in '#{method}'." unless method.eql?("load")
+    raise "Main configuration function, you cannot call '#{func}' in '#{method}'." unless method.eql?("load")
   end
 
   def check_sub_call(func)
     method = caller[2][/`([^']*)'/, 1]
-    raise "'#{func}' has to be called in 'task'." unless method.eql?("task")
+    raise "'#{func}' has to be called in 'action' function." unless method.eql?("action")
   end
 
 end

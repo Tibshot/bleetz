@@ -9,13 +9,13 @@ class Bleetz
   VERSION = "1.1"
 
   USAGE = <<-EOF
-Usage: bleetz [-c conf_file -h -l -s][[-t -v -c conf_file] task]
+Usage: bleetz [-c conf_file -h -l -s][[-t -v -c conf_file] action]
 
 -c <conf_file>         - Specify a special bleetz configuration file.
 -h                     - Help.
--l                     - List available task(s) defined in bleetz configuration file.
+-l                     - List available action(s) defined in bleetz configuration file.
 -s                     - Test ssh connection defined in bleetz conf.
--t <task_name>         - Test tasks (just print command that will be executed.
+-t <action_name>         - Test actions (just print command that will be executed.
 -v                     - Verbose Mode.
 -V                     - Print bleetz version.
 EOF
@@ -34,7 +34,7 @@ EOF
     end
     list if @list
     test_ssh if @ssh_test
-    abort "You need to specify a task." if @action.nil?
+    abort "You need to specify an action." if @action.nil?
     format_cmds
     test if @test
     connect
@@ -75,11 +75,11 @@ EOF
   end
 
   def format_cmds(action = @action)
-    abort "Unknown task: '#{action}'." unless @@actions.include?(action.to_sym)
+    abort "Unknown action: '#{action}'." unless @@actions.include?(action.to_sym)
     begin
       @@actions[action.to_sym].each { |c|
         if c.is_a? Symbol
-          abort "Undefined task: :#{c}. You have to define it." unless @@tasks.include?(c)
+          abort "Undefined action: :#{c}. You have to define it." unless @@tasks.include?(c)
           format_cmds(c)
         else
           @cmd_to_exec << c
@@ -91,7 +91,7 @@ EOF
   end
 
   def list
-    puts "Available tasks:"
+    puts "Available actions:"
     @@tasks.each { |k,v|
       desc = (v.empty? ? "No desc" : v)
       puts "#{k}: #{desc}"
