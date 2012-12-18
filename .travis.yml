@@ -4,6 +4,5 @@ rvm:
   - 1.9.3
   - 2.0.0
 notifications:
-  email: false
   irc: "irc.geeknode.org#bunker"
 script: "bundle exec rake test"
