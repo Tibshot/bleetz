@@ -1,10 +1,12 @@
 require 'rubygems'
 require 'net/ssh'
 require 'yaml'
+require 'bleetz/conf.rb'
+require 'bleetz/object.rb'
 
 class Bleetz
 
-  VERSION = "1.2"
+  VERSION = "1.3"
 
   USAGE = <<-EOF
 Usage: bleetz [-c conf_file -h -l -s][[-t -v -c conf_file] action]
@@ -24,11 +26,13 @@ EOF
     begin
       if @file.nil?
         cnf = YAML::load(File.open("#{Dir.pwd}/.bleetz"))
-        require 'bleetz/conf.rb'
-        require 'bleetz/object.rb'
         @file = cnf[:config] || cnf['config']
       end
       load @file
+    rescue TypeError
+      abort "Didn't you make a mistake in .bleetz file ?"
+    rescue ArgumentError
+      abort "Did you configure attribute like this: 'attribute: <value>'"
     rescue Exception => e
       abort "Problem during configuration loading: #{e.message}"
     end
