@@ -75,13 +75,13 @@
 ### OPTIONNAL SSH CONFIGS END
 
 
-#task(:deploy) {
+#action(:deploy) {
 # shell 'echo "test"'
 # shell 'echo \'string with single quote\''
 # shell "echo 'bleetz rocks'"
 #}
 
-#task(:moar) {
+#action(:moar) {
 # shell 'echo \'MOAR task !\''
 # call :deploy
 #}

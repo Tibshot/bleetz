@@ -1,12 +1,10 @@
 require 'rubygems'
 require 'net/ssh'
 require 'yaml'
-require 'bleetz/conf.rb'
-require 'bleetz/object.rb'
 
 class Bleetz
 
-  VERSION = "1.1"
+  VERSION = "1.2"
 
   USAGE = <<-EOF
 Usage: bleetz [-c conf_file -h -l -s][[-t -v -c conf_file] action]
@@ -26,6 +24,8 @@ EOF
     begin
       if @file.nil?
         cnf = YAML::load(File.open("#{Dir.pwd}/.bleetz"))
+        require 'bleetz/conf.rb'
+        require 'bleetz/object.rb'
         @file = cnf[:config] || cnf['config']
       end
       load @file

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "bleetz"
-  s.version     = "1.1"
+  s.version     = "1.2"
   s.date        = "2012-12-14"
   s.summary     = "Fast KISS deployment tool"
   s.description = "Fast KISS deployment tool"
