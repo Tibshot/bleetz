@@ -1,7 +1,8 @@
+t = Time.now
 Gem::Specification.new do |s|
   s.name        = "bleetz"
   s.version     = "1.3"
-  s.date        = "2012-12-18"
+  s.date        = t.strftime("%Y-%m-%d")
   s.summary     = "Fast KISS deployment tool"
   s.description = "Fast KISS deployment tool"
   s.authors     = ["Thibaut Deloffre"]
