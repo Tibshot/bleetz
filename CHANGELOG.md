@@ -1,5 +1,9 @@
 # Bleetz changelog
 
+## 1.4 / 2012-12-26
+
+* Add Exception type.
+
 ## 1.3 / 2012-12-19
 
 * Fix hack.

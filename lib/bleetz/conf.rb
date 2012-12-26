@@ -1,3 +1,11 @@
+class BleetzException < Exception
+  attr_accessor :message
+
+  def initialize(message)
+    @message = message
+  end
+end
+
 module Conf
 
   @@actions = {}
@@ -11,7 +19,11 @@ module Conf
   def action(action, desc = "")
     check_main_call(:action)
     @cmds = []
-    yield
+    begin
+      yield
+    rescue Exception => e
+      raise BleetzException.new("Conf error: #{e.class}: #{e.message} in #{e.backtrace[0]}")
+    end
     h = { action.to_sym => @cmds }
     t = { action.to_sym => desc.to_s }
     @@actions = @@actions.merge(h)
