@@ -22,7 +22,11 @@ module Conf
     begin
       yield
     rescue Exception => e
-      raise BleetzException.new("Conf error: #{e.class}: #{e.message} in #{e.backtrace[0]}")
+      if e.class.eql? RuntimeError
+        raise BleetzException.new(e.message)
+      else
+        raise BleetzException.new("#{e.class}: #{e.message} in #{e.backtrace[0]}")
+      end
     end
     h = { action.to_sym => @cmds }
     t = { action.to_sym => desc.to_s }
@@ -51,12 +55,12 @@ module Conf
 
   def check_main_call(func)
     method = caller[2][/`([^']*)'/, 1]
-    raise "Main configuration function, you cannot call '#{func}' in '#{method}'." unless method.eql?("load")
+    raise "#{caller[1].split(" ")[0]} '#{func}'. Main functions cannot be called in functions." unless method.eql?("load")
   end
 
   def check_sub_call(func)
     method = caller[2][/`([^']*)'/, 1]
-    raise "'#{func}' has to be called in 'action' function." unless method.eql?("action")
+    raise "#{caller[1].split(" ")[0]} '#{func}'. '#{func}' has to be called in 'action' function." unless method.eql?("action")
   end
 
 end

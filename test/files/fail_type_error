@@ -1,0 +1,8 @@
+set :host, 'localhost'
+set :username, 'tib'
+
+action(:archive) {
+  time = Time.new
+  date = time.day.to_s.rjust(2, '0') + '-' + time.month.to_s.rjust(2, '0') + '-' + time.year
+  shell "tar -cvzf " + date + ".tgz /var/www/stray"
+}

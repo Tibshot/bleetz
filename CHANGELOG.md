@@ -1,5 +1,10 @@
 # Bleetz changelog
 
+## 1.5 / 2012-12-27
+
+* Exception management update.
+* Test update.
+
 ## 1.4 / 2012-12-26
 
 * Add Exception type.

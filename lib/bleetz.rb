@@ -6,7 +6,7 @@ require 'bleetz/object.rb'
 
 class Bleetz
 
-  VERSION = "1.4"
+  VERSION = "1.5"
 
   USAGE = <<-EOF
 Usage: bleetz [-c conf_file -h -l -s][[-t -v -c conf_file] action]
@@ -32,7 +32,7 @@ EOF
     rescue TypeError
       abort "Didn't you make a mistake in .bleetz file ?"
     rescue BleetzException => e
-      abort e.message
+      abort "Problem during configuration loading: #{e.message}"
     rescue ArgumentError
       abort "Did you configure attribute like this: 'attribute: <value>'"
     rescue Exception => e
