@@ -102,7 +102,7 @@ These options are set by default but you can overide them (if you are sure what 
     <th>Private Key</th>
     <td>:keys</td>
     <td>Array of String</td>
-    <td>["$HOME/.ssh/id_dsa", "$HOME/.ssh2/id_dsa", "$HOME/.ssh/id_rsa", "$HOME/.ssh2/id_rsa"]</td>
+    <td>["~/.ssh/id_dsa", "~/.ssh2/id_dsa", "~/.ssh/id_rsa", "~/.ssh2/id_rsa"]</td>
   </tr>
   <tr>
     <th>Compression</th>
