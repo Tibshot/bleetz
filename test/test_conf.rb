@@ -8,7 +8,11 @@ class TestConf < Test::Unit::TestCase
     begin
       load Dir.pwd + '/test/files/fail_action'
     rescue Exception => e
-      assert_equal "#{Dir.pwd}/test/files/fail_action:2:in 'action'. Main functions cannot be called in functions.", e.message
+      if RUBY_VERSION.eql? '1.8.7'
+        assert_equal "#{Dir.pwd}/test/files/fail_action:2 'action'. Main functions cannot be called in functions.", e.message
+      else
+        assert_equal "#{Dir.pwd}/test/files/fail_action:2:in 'action'. Main functions cannot be called in functions.", e.message
+      end
     end
   end
 
@@ -16,7 +20,11 @@ class TestConf < Test::Unit::TestCase
     begin
       load Dir.pwd + '/test/files/fail_set'
     rescue Exception => e
-      assert_equal "#{Dir.pwd}/test/files/fail_set:2:in 'set'. Main functions cannot be called in functions.", e.message
+      if RUBY_VERSION.eql? '1.8.7'
+        assert_equal "#{Dir.pwd}/test/files/fail_set:2 'set'. Main functions cannot be called in functions.", e.message
+      else
+        assert_equal "#{Dir.pwd}/test/files/fail_set:2:in 'set'. Main functions cannot be called in functions.", e.message
+      end
     end
   end
 
@@ -24,7 +32,11 @@ class TestConf < Test::Unit::TestCase
     begin
       load Dir.pwd + '/test/files/fail_shell'
     rescue Exception => e
-      assert_equal "#{Dir.pwd}/test/files/fail_shell:1:in 'shell'. 'shell' has to be called in 'action' function.", e.message
+      if RUBY_VERSION.eql? '1.8.7'
+        assert_equal "#{Dir.pwd}/test/files/fail_shell:1 'shell'. 'shell' has to be called in 'action' function.", e.message
+      else
+        assert_equal "#{Dir.pwd}/test/files/fail_shell:1:in 'shell'. 'shell' has to be called in 'action' function.", e.message
+      end
     end
   end
 
@@ -32,7 +44,11 @@ class TestConf < Test::Unit::TestCase
     begin
       load Dir.pwd + '/test/files/fail_call'
     rescue Exception => e
-      assert_equal "#{Dir.pwd}/test/files/fail_call:1:in 'call'. 'call' has to be called in 'action' function.", e.message
+      if RUBY_VERSION.eql? '1.8.7'
+        assert_equal "#{Dir.pwd}/test/files/fail_call:1 'call'. 'call' has to be called in 'action' function.", e.message
+      else
+        assert_equal "#{Dir.pwd}/test/files/fail_call:1:in 'call'. 'call' has to be called in 'action' function.", e.message
+      end
     end
   end
 
