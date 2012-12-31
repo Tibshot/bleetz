@@ -23,9 +23,11 @@ Tested with Ruby:
 
     gem install bleetz
 
-or
+or for development:
 
     git clone https://github.com/TibshoOT/bleetz.git
+    gem build bleetz.gemspec
+    gem install ./bleetz
 
 ## Configuration
 
@@ -40,7 +42,7 @@ For example:
     $ touch ~/bleetz/bleetz.conf
     $ mkdir a_project_path
     $ cd a_project_path
-    $ echo ':config: \'~/bleetz/bleetz.conf\'' > .bleetz
+    $ echo 'config: \'~/bleetz/bleetz.conf\'' > .bleetz
     $ bleetz -l
 
 Following options have to be written in ~/bleetz/bleetz.conf in our example.
