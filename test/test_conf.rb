@@ -33,9 +33,9 @@ class TestConf < Test::Unit::TestCase
       load Dir.pwd + '/test/files/fail_shell'
     rescue Exception => e
       if RUBY_VERSION.eql? '1.8.7'
-        assert_equal "#{Dir.pwd}/test/files/fail_shell:1 'shell'. 'shell' has to be called in 'action' function.", e.message
+        assert_equal "#{Dir.pwd}/test/files/fail_shell:1 'shell'. 'shell' has to be called in 'action', 'before' or 'after' functions.", e.message
       else
-        assert_equal "#{Dir.pwd}/test/files/fail_shell:1:in 'shell'. 'shell' has to be called in 'action' function.", e.message
+        assert_equal "#{Dir.pwd}/test/files/fail_shell:1:in 'shell'. 'shell' has to be called in 'action', 'before' or 'after' functions.", e.message
       end
     end
   end

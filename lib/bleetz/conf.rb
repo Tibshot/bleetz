@@ -8,7 +8,9 @@ end
 
 module Conf
 
+  @@before = {}
   @@actions = {}
+  @@after = {}
   @@tasks = {}
   @@options = {}
 
@@ -34,10 +36,56 @@ module Conf
     @@tasks = @@tasks.merge(t)
   end
 
+  def before(action)
+    check_main_call(:before)
+    @before = []
+    begin
+      yield
+    rescue Exception => e
+      if e.class.eql? RuntimeError
+        raise BleetzException.new(e.message)
+      else
+        raise BleetzException.new("#{e.class}: #{e.message} in #{e.backtrace[0]}")
+      end
+    end
+    h = { action.to_sym => @before }
+    if @@before[action.to_sym].nil?
+      @@before = @@before.merge(h)
+    else
+      raise "You specified two 'before' callbacks for :#{action} action."
+    end
+  end
+
+  def after(action)
+    @after = []
+    check_main_call(:after)
+    begin
+      yield
+    rescue Exception => e
+      if e.class.eql? RuntimeError
+        raise BleetzException.new(e.message)
+      else
+        raise BleetzException.new("#{e.class}: #{e.message} in #{e.backtrace[0]}")
+      end
+    end
+    h = { action.to_sym => @after }
+    if @@before[action.to_sym].nil?
+      @@after = @@after.merge(h)
+    else
+      raise "You specified two 'after' callbacks for :#{action} action."
+    end
+  end
+
   def shell(cmd)
-    check_sub_call(:shell)
+    check_sub_call_for_shell
     raise "'shell' needs a String as parameter." unless cmd.is_a? String
-    @cmds << cmd
+    if caller[1][/`([^']*)'/, 1].eql?("action")
+      @cmds << cmd
+    elsif caller[1][/`([^']*)'/, 1].eql?("before")
+      @before << cmd
+    else
+      @after << cmd
+    end
   end
 
   def call(action)
@@ -55,12 +103,23 @@ module Conf
 
   def check_main_call(func)
     method = caller[2][/`([^']*)'/, 1]
-    raise "#{caller[1].split(" ")[0]} '#{func}'. Main functions cannot be called in functions." unless method.eql?("load")
+    unless method.eql?("load")
+      raise "#{caller[1].split(" ")[0]} '#{func}'. Main functions cannot be called in functions."
+    end
+  end
+
+  def check_sub_call_for_shell
+    method = caller[2][/`([^']*)'/, 1]
+    if !method.eql?("action") && !method.eql?("before") && !method.eql?("after")
+      raise "#{caller[1].split(" ")[0]} 'shell'. 'shell' has to be called in 'action', 'before' or 'after' functions."
+    end
   end
 
   def check_sub_call(func)
     method = caller[2][/`([^']*)'/, 1]
-    raise "#{caller[1].split(" ")[0]} '#{func}'. '#{func}' has to be called in 'action' function." unless method.eql?("action")
+    unless method.eql?("action")
+      raise "#{caller[1].split(" ")[0]} '#{func}'. '#{func}' has to be called in 'action' function."
+    end
   end
 
 end

@@ -107,7 +107,13 @@ EOF
 
   def test
     puts "Simulation, command printing without SSH. No excution."
+    unless @@before[@action.to_sym].nil?
+      @@before[@action.to_sym].each { |b| puts "before ssh (local): #{b}" }
+    end
     @cmd_to_exec.each { |c| puts c }
+    unless @@after[@action.to_sym].nil?
+      @@after[@action.to_sym].each { |a| puts "after ssh (local): #{a}" }
+    end
     exit(0)
   end
 
@@ -120,6 +126,9 @@ EOF
 
   def connect
     abort "You have to configure SSH options." if @@options.empty?
+    unless @ssh_test
+      @@before[@action.to_sym].each { |b| execute!(b) } unless @@before[@action.to_sym].nil?
+    end
     begin
         Timeout::timeout(@@options.delete(:timeout) || 10) {
           Net::SSH.start(@@options.delete(:host), @@options.delete(:username), @@options) { |ssh|
@@ -143,6 +152,14 @@ EOF
     rescue Timeout::Error
       abort "Timed out trying to get a connection."
     end
+    unless @ssh_test
+      @@after[@action.to_sym].each { |a| execute!(a) } unless @@after[@action.to_sym].nil?
+    end
+  end
+
+  def execute!(cmd)
+    out = `#{cmd} 2>&1`
+    puts out if @verbose
   end
 
   def usage
