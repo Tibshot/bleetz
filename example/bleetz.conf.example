@@ -85,3 +85,13 @@
 # shell 'echo \'MOAR task !\''
 # call :deploy
 #}
+#
+### Callback
+#
+#before(:deploy) {
+# shell "echo 'before deploy in local'"
+#}
+#
+#after(:moar) {
+# shell "echo 'MOAR LULZ IN LOCAL'"
+#}

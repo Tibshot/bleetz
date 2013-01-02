@@ -205,6 +205,52 @@ Imagine that you want print 42 in another action, :new_action here, but you want
 
 That's it. If you call :new_action, 'I will print 42 !' and '42' will be printed after SSH connection. :)
 
+
+###### Local callbacks
+
+If you want to run local shell script with bleetz before ssh, you can !
+
+    before(:test) {
+      shell "echo 'Command will be runned in local before ssh'"
+    }
+
+    action(:test) {
+      shell "echo 'Command over ssh'"
+    }
+
+    after(:test) {
+      shell "echo 'Command will be rrunned in local after ssh'"
+    }
+
+After and Before callback are called ONLY FOR THE MAIN action. Don't worry about call in action.
+
+Example, if you have defined this:
+
+    before(:test) {
+      shell "echo 'Command will be runned in local before ssh'"
+    }
+
+    action(:test) {
+      shell "echo 'Command over ssh'"
+    }
+
+    after(:test) {
+      shell "echo 'after ssh command in local'"
+    }
+
+    before(:testbis) {
+      shell "echo 'Command will be runned in local before ssh'"
+    }
+
+    action(:testbis) {
+      call :test
+      shell "echo 'Command over ssh'"
+    }
+
+If you call bleetz test, that will execute before(:test), action(:test) and finally, after(:test).
+
+If you call bleetz testbis, that will execute before(:testbis), action(:testbis), action(:test), that's all.
+
 ### .bleetz file (YAML)
 
 At the moment, there is only one option. Mandatory if you don't use -c command option.

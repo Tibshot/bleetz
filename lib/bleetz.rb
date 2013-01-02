@@ -6,7 +6,7 @@ require 'bleetz/object.rb'
 
 class Bleetz
 
-  VERSION = "1.5"
+  VERSION = "2.0"
 
   USAGE = <<-EOF
 Usage: bleetz [-c conf_file -h -l -s][[-t -v -c conf_file] action]
