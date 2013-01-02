@@ -206,9 +206,9 @@ Imagine that you want print 42 in another action, :new_action here, but you want
 That's it. If you call :new_action, 'I will print 42 !' and '42' will be printed after SSH connection. :)
 
 
-###### Local callbacks
+### Callbacks
 
-If you want to run local shell script with bleetz before ssh, you can !
+If you want to run LOCAL shell scripts with bleetz before or after action, you can !
 
     before(:test) {
       shell "echo 'Command will be runned in local before ssh'"
@@ -222,7 +222,7 @@ If you want to run local shell script with bleetz before ssh, you can !
       shell "echo 'Command will be rrunned in local after ssh'"
     }
 
-After and Before callback are called ONLY FOR THE MAIN action. Don't worry about call in action.
+After and Before callback are called ONLY FOR THE MAIN action. Don't worry about calls in action.
 
 Example, if you have defined this:
 
