@@ -61,4 +61,20 @@ class TestConf < Test::Unit::TestCase
     end
   end
 
+  def test_fail_before
+    begin
+      load Dir.pwd + '/test/files/fail_before'
+    rescue Exception => e
+      assert_equal "You specified two 'before' callbacks for :test action.", e.message
+    end
+  end
+
+  def test_fail_after
+    begin
+      load Dir.pwd + '/test/files/fail_after'
+    rescue Exception => e
+      assert_equal "You specified two 'after' callbacks for :test action.", e.message
+    end
+  end
+
 end

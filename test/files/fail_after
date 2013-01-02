@@ -1,0 +1,11 @@
+action(:test) {
+  shell "echo '42'"
+}
+
+after(:test) {
+  shell "echo 'first before'"
+}
+
+after(:test) {
+  shell "echo 'FAILURE HERE'"
+}
