@@ -1,5 +1,10 @@
 # Bleetz changelog
 
+## 2.0 / 2013-1-2
+
+* Add callbacks for local sh.
+* Test update.
+
 ## 1.5 / 2012-12-27
 
 * Exception management update.
