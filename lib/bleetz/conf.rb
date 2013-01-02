@@ -8,6 +8,14 @@ end
 
 module Conf
 
+  MAIN_CALLS = {:func => ['action', 'before', 'after', 'set'],
+                :from => ['load']}
+
+  SUB_CALLS =  {:shell => ['action', 'before', 'after'],
+                :call => ['action'],
+                :error => { :shell => "'shell'. 'shell' has to be called in 'action', 'before' or 'after' functions.",
+                            :call => "'call'. 'call' has to be called in 'action' function."} }
+
   @@before = {}
   @@actions = {}
   @@after = {}
@@ -19,7 +27,7 @@ module Conf
   end
 
   def action(action, desc = "")
-    check_main_call(:action)
+    check_call(:action)
     @cmds = []
     begin
       yield
@@ -37,7 +45,7 @@ module Conf
   end
 
   def before(action)
-    check_main_call(:before)
+    check_call(:before)
     @before = []
     begin
       yield
@@ -58,7 +66,7 @@ module Conf
 
   def after(action)
     @after = []
-    check_main_call(:after)
+    check_call(:after)
     begin
       yield
     rescue Exception => e
@@ -77,7 +85,7 @@ module Conf
   end
 
   def shell(cmd)
-    check_sub_call_for_shell
+    check_call(:shell)
     raise "'shell' needs a String as parameter." unless cmd.is_a? String
     if caller[1][/`([^']*)'/, 1].eql?("action")
       @cmds << cmd
@@ -89,36 +97,28 @@ module Conf
   end
 
   def call(action)
-    check_sub_call(:call)
+    check_call(:call)
     raise "'call :action_name'. You didn't pass a Symbol." unless action.is_a? Symbol
     @cmds << action
   end
 
   def set(opt, value)
-    check_main_call(:set)
+    check_call(:set)
     @@options[opt.to_sym] = value
   end
 
   private
 
-  def check_main_call(func)
-    method = caller[2][/`([^']*)'/, 1]
-    unless method.eql?("load")
-      raise "#{caller[1].split(" ")[0]} '#{func}'. Main functions cannot be called in functions."
-    end
-  end
-
-  def check_sub_call_for_shell
-    method = caller[2][/`([^']*)'/, 1]
-    if !method.eql?("action") && !method.eql?("before") && !method.eql?("after")
-      raise "#{caller[1].split(" ")[0]} 'shell'. 'shell' has to be called in 'action', 'before' or 'after' functions."
-    end
-  end
-
-  def check_sub_call(func)
-    method = caller[2][/`([^']*)'/, 1]
-    unless method.eql?("action")
-      raise "#{caller[1].split(" ")[0]} '#{func}'. '#{func}' has to be called in 'action' function."
+  def check_call(func)
+    parent_call = caller[2][/`([^']*)'/, 1]
+    if MAIN_CALLS[:func].include?(func.to_s)
+      unless MAIN_CALLS[:from].include?(parent_call)
+        raise "#{caller[1].split(" ")[0]} '#{func}'. Main functions cannot be called in functions."
+      end
+    else
+      unless SUB_CALLS[func].include?(parent_call)
+        raise "#{caller[1].split(" ")[0]} #{SUB_CALLS[:error][func]}"
+      end
     end
   end
 
