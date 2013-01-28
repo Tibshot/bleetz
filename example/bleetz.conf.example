@@ -33,6 +33,16 @@
 
 ### VERY OPTIONNAL SSH CONFIGS
 
+## ProxyCommand
+# You can set proxy command as your .ssh/config file
+#
+# !! WARN !!
+# DUE TO NET-SSH GEM PB, IT CAN BE VERY LOW TO CLOSE SESSION. BUT... IT WORKS !
+# !! /WARN !!
+#
+# Example:
+# set :proxycmd, 'ssh lol@domain nc %h blabla'
+
 ## SSH Compression - default: none
 # You can choose:
 # - 'zlib'

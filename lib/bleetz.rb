@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'net/ssh'
+require 'net/ssh/proxy/command'
 require 'yaml'
 require 'bleetz/conf.rb'
 require 'bleetz/object.rb'
@@ -127,18 +128,29 @@ EOF
   def connect
     abort "You have to configure SSH options." if @@options.empty?
     unless @ssh_test
-      @@before[@action.to_sym].each { |b| execute!(b) } unless @@before[@action.to_sym].nil?
+      @@before[@action.to_sym].each { |b|
+        execute!(b) } unless @@before[@action.to_sym].nil?
     end
+    if @@options[:proxycmd]
+      cmd = @@options.delete(:proxycmd)
+      abort "You need specify a proxy command !" if cmd.nil?
+      begin
+        @@options[:proxy] = Net::SSH::Proxy::Command.new(cmd)
+      rescue Exception => e
+        abort "SSH proxy command error: #{e.message}"
+      end
+    end
+    @@options[:timeout] = 10 unless @@options[:timeout]
     begin
-        Timeout::timeout(@@options.delete(:timeout) || 10) {
-          Net::SSH.start(@@options.delete(:host), @@options.delete(:username), @@options) { |ssh|
-            if !@cmd_to_exec.empty?
-              @cmd_to_exec.each { |command|
-                output = ssh.exec!(command)
-                puts output if @verbose
-              }
-            end
-          }
+         Net::SSH.start(@@options.delete(:host),
+                         @@options.delete(:username),
+                         @@options) { |ssh|
+           if !@cmd_to_exec.empty?
+             @cmd_to_exec.each { |command|
+               output = ssh.exec!(command)
+               puts output if @verbose
+             }
+           end
         }
     rescue NotImplementedError => e
       abort "SSH error: #{e.message}"
@@ -153,7 +165,8 @@ EOF
       abort "Timed out trying to get a connection."
     end
     unless @ssh_test
-      @@after[@action.to_sym].each { |a| execute!(a) } unless @@after[@action.to_sym].nil?
+      @@after[@action.to_sym].each { |a|
+        execute!(a) } unless @@after[@action.to_sym].nil?
     end
   end
 
