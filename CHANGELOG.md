@@ -1,5 +1,9 @@
 # Bleetz changelog
 
+## 2.1 / 3103-1-28
+
+* Add proxy command.
+
 ## 2.0 / 2013-1-2
 
 * Add callbacks for local sh.

@@ -95,6 +95,12 @@ These options are set by default but you can overide them (if you are sure what 
     <td>22</td>
   </tr>
   <tr>
+    <th>Proxy Command</th>
+    <td>:proxycmd</td>
+    <td>String</td>
+    <td>empty</td>
+  </tr>
+  <tr>
     <th>Timeout</th>
     <td>:timeout</td>
     <td>Integer</td>
